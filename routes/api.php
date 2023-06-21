@@ -30,7 +30,7 @@ Route::prefix('v1')->group(function () {
         Route::get('brands/{id}', [BrandController::class, 'show']);
     });
 
-    Route::middleware(['permission:create brand|perform all task'])->group(function () {
+    Route::middleware(['auth:sanctum', 'permission:create brand|perform all task'])->group(function () {
         Route::post('brands', [BrandController::class, 'store']);
     });
 
