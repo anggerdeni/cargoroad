@@ -12,6 +12,10 @@ class Brand extends Model
         "name", "address", "created_by"
     ];
 
+    protected $hidden = [
+        "created_by", "updated_by",
+    ];
+
     public function products()
     {
         return $this->hasMany('App\Models\Product');

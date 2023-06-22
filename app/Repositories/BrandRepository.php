@@ -13,6 +13,17 @@ class BrandRepository
         $this->brandModel = $brandModel;
     }
 
+    public function index(int $perPage = 10, string $search = null)
+    {
+        $query = $this->brandModel->query();
+
+        if ($search) {
+            $query->where('name', 'like', '%' . $search . '%');
+        }
+
+        return $query->paginate($perPage);
+    }
+
     public function create(array $data)
     {
         return $this->brandModel->create($data);

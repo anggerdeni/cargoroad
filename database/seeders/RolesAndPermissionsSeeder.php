@@ -16,7 +16,6 @@ class RolesAndPermissionsSeeder extends Seeder
         // Create roles
         $adminRole = Role::create(['name' => 'admin']);
         $editorRole = Role::create(['name' => 'editor']);
-        $viewerRole = Role::create(['name' => 'viewer']);
 
         // Create permissions
         $adminPermission = Permission::create(['name' => 'perform all task']);
@@ -35,6 +34,5 @@ class RolesAndPermissionsSeeder extends Seeder
             $createCarPermission, $editCarPermission, $deleteCarPermission, $viewCarPermission,
             $viewBrandPermission,
         );
-        $viewerRole->givePermissionTo($viewCarPermission);
     }
 }

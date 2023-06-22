@@ -8,12 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        "name", "description", "brand_id"
+    ];
+
+    protected $hidden = [
+        "created_by", "updated_by",
+    ];
+
     public function brand()
     {
         return $this->belongsTo('App\Models\Brand');
     }
 
-    public function media()
+    public function productMedia()
     {
         return $this->hasMany('App\Models\ProductMedia');
     }

@@ -2,6 +2,8 @@
 
 namespace App\Repositories;
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Product;
 
 class ProductRepository
@@ -13,9 +15,33 @@ class ProductRepository
         $this->productModel = $productModel;
     }
 
-    public function create(array $data)
+    public function index(int $perPage = 10, string $search = null)
     {
-        return $this->productModel->create($data);
+        $query = $this->productModel->query();
+
+        if ($search) {
+            $query->where('name', 'like', '%' . $search . '%');
+        }
+
+        return $query->paginate($perPage);
+    }
+
+    public function create(array $data, $mediaFiles)
+    {
+        return DB::transaction(function () use ($data, $mediaFiles) {
+            $product = $this->productModel->create($data);
+            foreach ($mediaFiles as $file) {
+                $filename = uniqid('media_') . '.' . $file->getClientOriginalExtension();
+                $path = Storage::disk('public')->putFileAs('product_media', $file, $filename);
+
+                $product->productMedia()->create([
+                    'file_name' => $filename,
+                    'file_path' => $path,
+                    'mime_type' => $file->getMimeType(),
+                ]);
+            }
+            return $product;
+        });
     }
 
     public function update(int $id, array $data)
@@ -31,5 +57,11 @@ class ProductRepository
         $product->delete();
     }
 
-    // Add any other methods as needed
+    public function addMedia(int $id, $media)
+    {
+    }
+
+    public function removeMedia(int $productID, $mediaID)
+    {
+    }
 }

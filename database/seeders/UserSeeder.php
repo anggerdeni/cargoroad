@@ -27,19 +27,11 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
         ]);
 
-        $viewerUser = User::create([
-            'name' => 'Viewer',
-            'email' => 'viewer@example.com',
-            'password' => Hash::make('password'),
-        ]);
-
         $adminRole = Role::findByName('admin');
         $editorRole = Role::findByName('editor');
-        $viewerRole = Role::findByName('viewer');
 
         // Assign roles to users
         $adminUser->assignRole($adminRole);
         $editorUser->assignRole($editorRole);
-        $viewerUser->assignRole($viewerRole);
     }
 }

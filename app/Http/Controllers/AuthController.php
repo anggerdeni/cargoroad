@@ -6,9 +6,33 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Services\UserService;
 
 class AuthController extends Controller
 {
+    protected UserService $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
+    public function register(Request $request)
+    {
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+        $brand = $this->userService->registerNewEditor($data);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'User created successfully',
+            'data' => $brand,
+        ], 201);
+    }
+
     public function login(Request $request)
     {
         $request->validate([
