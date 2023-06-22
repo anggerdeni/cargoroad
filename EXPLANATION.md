@@ -14,3 +14,6 @@ Due to time constraints, I have added unit tests specifically for the Service la
 - Caching on Repository Layer
 I have implemented a caching mechanism on the Repository layer to improve performance, reduce database load, and provide faster response times by storing and retrieving frequently accessed data more efficiently.
 I choose to implement it on repository layer so that if we want to turn it on/off we don't need to change much of the service layer.
+
+- Postman Collection
+I added Postman Collection on folder `postman`. This folder contains two file: collection and environment. I have added some scripts that makes testing easier in the Postman (e.g. after logging in, the token received will be automatically set on environment)

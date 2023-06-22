@@ -1,0 +1,716 @@
+{
+	"info": {
+		"_postman_id": "0ea2da27-7635-45e0-8b1f-6d9138109b97",
+		"name": "cargoroad",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19416449"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "Login - Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"set authorization token\", function () {",
+									"  pm.response.to.have.status(200);",
+									"  var responseJson = pm.response.json();",
+									"  pm.environment.set(\"token\", responseJson.access_token);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@example.com\",\n    \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/login",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login - Editor1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"set authorization token\", function () {",
+									"  pm.response.to.have.status(200);",
+									"  var responseJson = pm.response.json();",
+									"  pm.environment.set(\"token\", responseJson.access_token);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"editor1@example.com\",\n    \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/login",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login - Editor2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"set authorization token\", function () {",
+									"  pm.response.to.have.status(200);",
+									"  var responseJson = pm.response.json();",
+									"  pm.environment.set(\"token\", responseJson.access_token);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"editor2@example.com\",\n    \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/login",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"set authorization token\", function () {",
+									"  pm.response.to.have.status(200);",
+									"  var responseJson = pm.response.json();",
+									"  pm.environment.set(\"token\", responseJson.access_token);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{$randomFullName}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"password\": \"password\",\n    \"password_confirmation\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/register",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "brand",
+			"item": [
+				{
+					"name": "Brand - Index",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/brands",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"brands"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "optional",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "agac",
+									"description": "optional",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Brand - Show",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/brands/{{brand_id}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"brands",
+								"{{brand_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Brand - Create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"set brand id\", function () {",
+									"  pm.response.to.have.status(201);",
+									"  var responseJson = pm.response.json();",
+									"  pm.environment.set(\"brand_id\", responseJson.data.id);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{$randomCompanyName}}\",\n    \"address\": \"{{$randomStreetAddress}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/brands",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"brands"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Brand - Update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/brands/{{brand_id}}?name={{$randomCompanyName}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"brands",
+								"{{brand_id}}"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "{{$randomCompanyName}}",
+									"description": "optional"
+								},
+								{
+									"key": "address",
+									"value": "{{$randomStreetAddress}}",
+									"description": "optional",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Brand - Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/brands/{{brand_id}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"brands",
+								"{{brand_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "product",
+			"item": [
+				{
+					"name": "Product - Index",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/products",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "optional",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "Practical",
+									"description": "optional",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product - Show",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/products/{{product_id}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"products",
+								"{{product_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product - Create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"set product id\", function () {",
+									"  pm.response.to.have.status(201);",
+									"  var responseJson = pm.response.json();",
+									"  pm.environment.set(\"product_id\", responseJson.data.id);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "{{$randomProductName}}",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "{{$randomLoremParagraph}}",
+									"type": "text"
+								},
+								{
+									"key": "brand_id",
+									"value": "{{brand_id}}",
+									"type": "text"
+								},
+								{
+									"key": "media[]",
+									"type": "file",
+									"src": "/home/an0nvi/Pictures/Manga_E224_Berserker_Armor.webp",
+									"disabled": true
+								},
+								{
+									"key": "media[]",
+									"type": "file",
+									"src": "/home/an0nvi/Pictures/doll.png",
+									"disabled": true
+								},
+								{
+									"key": "media[]",
+									"type": "file",
+									"src": "/home/an0nvi/Pictures/326af5fe-31ad-4725-9562-e5b3dcabf6db.jpeg",
+									"disabled": true
+								},
+								{
+									"key": "media[]",
+									"type": "file",
+									"src": "/home/an0nvi/Pictures/burning bridge.jpeg",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/products",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product - Add Media",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"set media id\", function () {",
+									"  pm.response.to.have.status(201);",
+									"  var responseJson = pm.response.json();",
+									"  pm.environment.set(\"media_id\", responseJson.data.id);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "media",
+									"type": "file",
+									"src": "/home/an0nvi/Pictures/WhatsApp Image 2023-04-24 at 9.03.10 PM.jpeg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/products/{{product_id}}/add-media",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"products",
+								"{{product_id}}",
+								"add-media"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product - Remove Media",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "{{$randomProductName}}",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "{{$randomLoremParagraph}}",
+									"type": "text"
+								},
+								{
+									"key": "brand_id",
+									"value": "{{brand_id}}",
+									"type": "text"
+								},
+								{
+									"key": "media[]",
+									"type": "file",
+									"src": "/home/an0nvi/Pictures/Manga_E224_Berserker_Armor.webp"
+								},
+								{
+									"key": "media[]",
+									"type": "file",
+									"src": "/home/an0nvi/Pictures/doll.png"
+								},
+								{
+									"key": "media[]",
+									"type": "file",
+									"src": "/home/an0nvi/Pictures/326af5fe-31ad-4725-9562-e5b3dcabf6db.jpeg"
+								},
+								{
+									"key": "media[]",
+									"type": "file",
+									"src": "/home/an0nvi/Pictures/burning bridge.jpeg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/products/{{product_id}}/remove-media/{{media_id}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"products",
+								"{{product_id}}",
+								"remove-media",
+								"{{media_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product - Update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/products/{{product_id}}?name={{$randomProductName}}&description={{$randomLoremParagraph}}&brand_id={{brand_id}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"products",
+								"{{product_id}}"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "{{$randomProductName}}",
+									"description": "optional"
+								},
+								{
+									"key": "description",
+									"value": "{{$randomLoremParagraph}}",
+									"description": "optional"
+								},
+								{
+									"key": "brand_id",
+									"value": "{{brand_id}}",
+									"description": "optional"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product - Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/products/{{product_id}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"products",
+								"{{product_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.request.headers.add({",
+					"    key: 'Accept',",
+					"    value: 'application/json'",
+					"});"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
