@@ -14,7 +14,7 @@ class BrandFactory extends Factory
         return [
             'name' => $this->faker->company,
             'address' => $this->faker->address,
-            'created_by' => $this->faker->numberBetween(1, 2),
+            'created_by' => $this->faker->numberBetween(1, 3),
             'created_at' => now(),
             'updated_by' => null,
         ];

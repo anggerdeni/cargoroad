@@ -3,19 +3,19 @@ namespace Tests\Unit\Service;
 
 use PHPUnit\Framework\TestCase;
 use App\Services\BrandService;
-use App\Repositories\BrandRepository;
+use App\Repositories\BrandRepositoryCacheDecorator;
 
 class BrandServiceTest extends TestCase
 {
     protected BrandService $brandService;
-    protected BrandRepository $brandRepository;
+    protected BrandRepositoryCacheDecorator $brandRepository;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        // Create a mock instance of the BrandRepository
-        $this->brandRepository = $this->createMock(BrandRepository::class);
+        // Create a mock instance of the BrandRepositoryCacheDecorator
+        $this->brandRepository = $this->createMock(BrandRepositoryCacheDecorator::class);
 
         // Create an instance of the BrandService, injecting the mock repository
         $this->brandService = new BrandService($this->brandRepository);

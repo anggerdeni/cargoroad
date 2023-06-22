@@ -3,20 +3,20 @@
 namespace App\Services;
 
 use Exception;
-use App\Repositories\ProductRepository;
+use App\Repositories\ProductRepositoryCacheDecorator;
 use App\Repositories\UserRepository;
 
 class ProductService
 {
-    protected ProductRepository $productRepository;
-    protected UserRepository $userRepository;
+    protected $productRepository;
+    protected $userRepository;
 
     public function getMaxMediaPerProduct(): int
     {
         return 10;
     }
 
-    public function __construct(ProductRepository $productRepository, UserRepository $userRepository)
+    public function __construct(ProductRepositoryCacheDecorator $productRepository, UserRepository $userRepository)
     {
         $this->productRepository = $productRepository;
         $this->userRepository = $userRepository;

@@ -3,13 +3,13 @@
 namespace App\Services;
 
 use Exception;
-use App\Repositories\BrandRepository;
+use App\Repositories\BrandRepositoryCacheDecorator;
 
 class BrandService
 {
-    protected BrandRepository $brandRepository;
+    protected $brandRepository;
 
-    public function __construct(BrandRepository $brandRepository)
+    public function __construct(BrandRepositoryCacheDecorator $brandRepository)
     {
         $this->brandRepository = $brandRepository;
     }

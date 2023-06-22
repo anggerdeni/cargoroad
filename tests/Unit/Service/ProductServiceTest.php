@@ -2,7 +2,7 @@
 namespace Tests\Unit\Service;
 
 use App\Services\ProductService;
-use App\Repositories\ProductRepository;
+use App\Repositories\ProductRepositoryCacheDecorator;
 use App\Repositories\UserRepository;
 use Exception;
 use PHPUnit\Framework\TestCase;
@@ -10,12 +10,12 @@ use PHPUnit\Framework\TestCase;
 class ProductServiceTest extends TestCase
 {
     protected ProductService $productService;
-    protected ProductRepository $productRepository;
+    protected ProductRepositoryCacheDecorator $productRepository;
     protected UserRepository $userRepository;
 
     protected function setUp(): void
     {
-        $this->productRepository = $this->createMock(ProductRepository::class);
+        $this->productRepository = $this->createMock(ProductRepositoryCacheDecorator::class);
         $this->userRepository = $this->createMock(UserRepository::class);
 
         $this->productService = new ProductService($this->productRepository, $this->userRepository);

@@ -23,7 +23,13 @@ class UserSeeder extends Seeder
 
         $editorUser = User::create([
             'name' => 'Editor',
-            'email' => 'editor@example.com',
+            'email' => 'editor1@example.com',
+            'password' => Hash::make('password'),
+        ]);
+
+        $editor2User = User::create([
+            'name' => 'Editor',
+            'email' => 'editor2@example.com',
             'password' => Hash::make('password'),
         ]);
 
@@ -33,5 +39,6 @@ class UserSeeder extends Seeder
         // Assign roles to users
         $adminUser->assignRole($adminRole);
         $editorUser->assignRole($editorRole);
+        $editor2User->assignRole($editorRole);
     }
 }
