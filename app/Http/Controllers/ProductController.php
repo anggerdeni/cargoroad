@@ -31,9 +31,8 @@ class ProductController extends Controller
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to retrieve products.',
-                'error' => $e->getMessage(),
-            ], 500);
+                'message' => $e->getMessage(),
+            ], 200);
         }
     }
 
@@ -45,7 +44,7 @@ class ProductController extends Controller
         try {
             $data = $request->validate([
                 'name' => 'required|string|max:255',
-                'description' => 'required|string|max:500',
+                'description' => 'required|string|max:200',
                 'brand_id' => 'required|exists:brands,id',
                 'media' => 'array|max:10',
                 'media.*' => 'image|max:2048',
@@ -61,9 +60,8 @@ class ProductController extends Controller
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to create product.',
-                'error' => $e->getMessage(),
-            ], 500);
+                'message' => $e->getMessage(),
+            ], 200);
         }
     }
 
@@ -90,9 +88,8 @@ class ProductController extends Controller
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to retrieve product.',
-                'error' => $e->getMessage(),
-            ], 500);
+                'message' => $e->getMessage(),
+            ], 200);
         }
     }
 
@@ -104,7 +101,7 @@ class ProductController extends Controller
         try {
             $data = $request->validate([
                 'name' => 'string|max:255',
-                'description' => 'string|max:500',
+                'description' => 'string|max:200',
                 'brand_id' => 'exists:brands,id',
             ]);
             $data['updated_by'] = $request->user()->id;
@@ -118,19 +115,18 @@ class ProductController extends Controller
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to update product.',
-                'error' => $e->getMessage(),
-            ], 500);
+                'message' => $e->getMessage(),
+            ], 200);
         }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, string $id)
     {
         try {
-            $product = $this->productService->deleteProduct($id);
+            $product = $this->productService->deleteProduct($id, $request->user()->id);
 
             return response()->json([
                 'success' => true,
@@ -140,25 +136,53 @@ class ProductController extends Controller
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to delete product.',
-                'error' => $e->getMessage(),
-            ], 500);
+                'message' => $e->getMessage(),
+            ], 200);
         }
     }
 
     /**
      * Add media
      */
-    public function addMedia(string $id)
+    public function addMedia(Request $request, string $id)
     {
-        // Add your implementation for adding media to a product here
+        try {
+            $data = $request->validate([
+                'media' => 'required|image|max:2048',
+            ]);
+            $media = $this->productService->addMedia($id, $request->file('media'), $request->user()->id);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Media added successfully',
+                'data' => $media,
+            ], 201);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], 200);
+        }
     }
 
     /**
      * Remove media
      */
-    public function removeMedia(string $id, string $media_id)
+    public function removeMedia(Request $request, string $id, string $media_id)
     {
-        // Add your implementation for removing media from a product here
+        try {
+            $media = $this->productService->removeMedia($id, $media_id, $request->user()->id);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Media removed successfully',
+                'data' => $media,
+            ], 201);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], 200);
+        }
     }
 }

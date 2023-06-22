@@ -9,7 +9,7 @@ class Brand extends Model
 {
     use HasFactory;
     protected $fillable = [
-        "name", "address", "created_by"
+        "name", "address", "created_by", "updated_by",
     ];
 
     protected $hidden = [

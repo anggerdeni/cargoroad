@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Exception;
 use App\Repositories\UserRepository;
 
 class UserService
@@ -15,18 +16,10 @@ class UserService
 
     public function registerNewEditor(array $data)
     {
-        return $this->userRepository->createEditor($data);
-    }
-
-    public function updateUser(int $id, array $data)
-    {
-        // Add any business logic here, such as validation or data manipulation
-        return $this->userRepository->update($id, $data);
-    }
-
-    public function deleteUser(int $id)
-    {
-        // Add any business logic here, such as validation or data manipulation
-        return $this->userRepository->delete($id);
+        try {
+            return $this->userRepository->createEditor($data);
+        } catch (Exception $e) {
+            throw new Exception('Failed to register user: ' . $e->getMessage());
+        }
     }
 }

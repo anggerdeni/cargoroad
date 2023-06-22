@@ -9,12 +9,12 @@ class ProductMedia extends Model
 {
     use HasFactory;
 
-    protected $hidden = [
-        "created_by", "updated_by",
+    protected $fillable = [
+        "file_name", "file_path", "product_id", "mime_type", "created_by", "updated_by",
     ];
 
-    protected $fillable = [
-        "file_name", "file_path", "product_id", "mime_type",
+    protected $hidden = [
+        "created_by", "updated_by",
     ];
 
     public function product()
