@@ -19,10 +19,10 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $products = $this->productService->index();
+            $products = $this->productService->index($request->search);
             return response()->json([
                 'success' => true,
                 'message' => 'OK',
@@ -44,7 +44,7 @@ class ProductController extends Controller
         try {
             $data = $request->validate([
                 'name' => 'required|string|max:255',
-                'description' => 'required|string|max:200',
+                'description' => 'required|string',
                 'brand_id' => 'required|exists:brands,id',
                 'media' => 'array|max:10',
                 'media.*' => 'image|max:2048',
@@ -71,7 +71,7 @@ class ProductController extends Controller
     public function show(string $id)
     {
         try {
-            $product = Product::find($id);
+            $product = Product::with('brand', 'productMedia', 'createdBy')->find($id);
 
             if ($product) {
                 return response()->json([

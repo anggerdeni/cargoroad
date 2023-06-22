@@ -26,4 +26,9 @@ class Product extends Model
     {
         return $this->hasMany('App\Models\ProductMedia');
     }
+
+    public function createdBy()
+    {
+        return $this->belongsTo('App\Models\User', 'created_by', 'id');
+    }
 }

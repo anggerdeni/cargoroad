@@ -25,7 +25,7 @@ class ProductService
     public function index(string $search = null)
     {
         try {
-            return $this->productRepository->index();
+            return $this->productRepository->index(search: $search);
         } catch (Exception $e) {
             throw new Exception('Failed to retrieve products: ' . $e->getMessage());
         }

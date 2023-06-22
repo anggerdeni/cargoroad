@@ -19,10 +19,10 @@ class BrandController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $brands = $this->brandService->index();
+            $brands = $this->brandService->index($request->search);
             return response()->json([
                 'success' => true,
                 'message' => 'ok',

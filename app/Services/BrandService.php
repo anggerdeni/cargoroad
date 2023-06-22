@@ -18,7 +18,7 @@ class BrandService
     {
         try {
             // Add any input sanitization or validation here
-            return $this->brandRepository->index();
+            return $this->brandRepository->index(search: $search);
         } catch (Exception $e) {
             // Handle the exception
             throw new Exception('Failed to retrieve brands: ' . $e->getMessage());
