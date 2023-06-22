@@ -17,10 +17,8 @@ class BrandService
     public function index(string $search = null)
     {
         try {
-            // Add any input sanitization or validation here
             return $this->brandRepository->index(search: $search);
         } catch (Exception $e) {
-            // Handle the exception
             throw new Exception('Failed to retrieve brands: ' . $e->getMessage());
         }
     }
@@ -30,7 +28,6 @@ class BrandService
         try {
             return $this->brandRepository->create($data)->toArray();
         } catch (Exception $e) {
-            // Handle the exception
             throw new Exception('Failed to create brand: ' . $e->getMessage());
         }
     }
@@ -40,7 +37,6 @@ class BrandService
         try {
             return $this->brandRepository->update($id, $data);
         } catch (Exception $e) {
-            // Handle the exception
             throw new Exception('Failed to update brand: ' . $e->getMessage());
         }
     }
@@ -50,7 +46,6 @@ class BrandService
         try {
             return $this->brandRepository->delete($id);
         } catch (Exception $e) {
-            // Handle the exception
             throw new Exception('Failed to delete brand: ' . $e->getMessage());
         }
     }
