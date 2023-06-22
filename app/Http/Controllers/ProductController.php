@@ -101,7 +101,7 @@ class ProductController extends Controller
         try {
             $data = $request->validate([
                 'name' => 'string|max:255',
-                'description' => 'string|max:200',
+                'description' => 'string',
                 'brand_id' => 'exists:brands,id',
             ]);
             $data['updated_by'] = $request->user()->id;
