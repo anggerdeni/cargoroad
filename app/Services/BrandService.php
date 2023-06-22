@@ -26,7 +26,7 @@ class BrandService
     public function createBrand(array $data)
     {
         try {
-            return $this->brandRepository->create($data)->toArray();
+            return $this->brandRepository->create($data);
         } catch (Exception $e) {
             throw new Exception('Failed to create brand: ' . $e->getMessage());
         }
